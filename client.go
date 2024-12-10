@@ -13,7 +13,7 @@ type Storage struct {
 	Pool *pgxpool.Pool
 }
 
-func NewClient(ctx context.Context, cfg *configo.Database) (*Storage, error) {
+func NewClient(ctx context.Context, cfg *configo.Database) (*pgxpool.Pool, error) {
 	dsn := Dsn(cfg)
 
 	var pool *pgxpool.Pool
@@ -40,7 +40,7 @@ func NewClient(ctx context.Context, cfg *configo.Database) (*Storage, error) {
 	}
 
 	log.Println("Успешное подключение к базе данных!")
-	return &Storage{Pool: pool}, nil
+	return pool, nil
 }
 
 func Dsn(cfg *configo.Database) string {
